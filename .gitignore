@@ -10,6 +10,5 @@ phpunit.xml
 phpstan.neon
 *.log
 config/reference.php
-.cursor/
 .agent/
 .claude/
