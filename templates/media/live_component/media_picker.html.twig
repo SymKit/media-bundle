@@ -1,0 +1,86 @@
+<div {{ attributes }} class="w-full relative">
+    {# Hidden Input for Form Submission #}
+    <input type="hidden" name="{{ this.inputName }}" value="{{ this.mediaId }}" data-model="norender|mediaId">
+
+    {% if this.media %}
+    <div
+        class="group relative flex w-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all dark:border-gray-700 dark:bg-gray-800 sm:max-w-sm">
+        <div class="aspect-h-9 aspect-w-16 block w-full overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+            <img src="{{ asset(this.media|media_url) }}" alt="{{ this.media.altText }}"
+                class="object-cover w-full h-full">
+
+            {# Hover Overlay with Actions #}
+            <div
+                class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity gap-3">
+                <button type="button"
+                    class="rounded-full bg-white p-2 text-gray-900 hover:bg-gray-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    data-action="live#action" data-live-action-param="openModal" data-loading="addClass(opacity-50)"
+                    title="Replace">
+                    {{ ux_icon('heroicons:arrow-path-20-solid', {class: 'w-5 h-5'}) }}
+                </button>
+                <button type="button"
+                    class="rounded-full bg-white p-2 text-red-600 hover:bg-red-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    data-action="live#action" data-live-action-param="removeMedia" data-loading="addClass(opacity-50)"
+                    title="Remove">
+                    {{ ux_icon('heroicons:trash-20-solid', {class: 'w-5 h-5'}) }}
+                </button>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-700">
+            <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-medium text-gray-900 dark:text-white"
+                    title="{{ this.media.originalFilename }}">
+                    {{ this.media.originalFilename }}
+                </p>
+                {% if this.media.width is defined and this.media.height is defined %}
+                <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+                    {{ this.media.width }}x{{ this.media.height }}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <button type="button" data-action="live#action" data-live-action-param="openModal"
+        data-loading="addClass(opacity-50)"
+        class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-gray-700 dark:hover:border-gray-600 transition-colors">
+        <div class="mx-auto h-12 w-12 text-gray-400">
+            {{ ux_icon('heroicons:photo-20-solid', {class: 'w-12 h-12'}) }}
+        </div>
+        <span class="mt-2 block text-sm font-semibold text-gray-900 dark:text-white">Select an image</span>
+    </button>
+    {% endif %}
+
+    {# Modal #}
+    {% if this.modalOpen %}
+    <div class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Background backdrop -->
+        <div class="fixed inset-0 bg-gray-900/75 transition-opacity backdrop-blur-sm" data-action="click->live#action"
+            data-live-action-param="closeModal"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+            <div
+                class="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-900 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-5xl border border-gray-200 dark:border-gray-700 flex flex-col max-h-[90vh]">
+                <div
+                    class="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-gray-700 sm:px-6 sticky top-0 bg-white dark:bg-gray-900 z-10">
+                    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white" id="modal-title">Select
+                        Media</h3>
+                    <button type="button"
+                        class="rounded-md bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        data-action="live#action" data-live-action-param="closeModal"
+                        data-loading="addClass(opacity-50)">
+                        <span class="sr-only">Close</span>
+                        {{ ux_icon('heroicons:x-mark-20-solid', {class: 'w-6 h-6'}) }}
+                    </button>
+                </div>
+
+                <div class="flex-1 overflow-y-auto px-4 py-4 sm:p-6">
+                    {{ component('media_library', {selectionMode: true, selectedMediaId: this.mediaId, context:
+                    this.inputName}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>

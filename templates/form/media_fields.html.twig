@@ -1,0 +1,61 @@
+{% block media_widget %}
+{# Render the Live Component, passing the current value (media ID) and the input name #}
+{{ component('media_picker', {
+mediaId: value is not empty ? value + 0 : null,
+inputName: full_name
+}) }}
+{% endblock %}
+{% block media_row %}
+{% set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' col-span-full')|trim}) %}
+<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+    {{- form_label(form) -}}
+    <div class="mt-2">
+        {{- form_widget(form) -}}
+    </div>
+    {{- form_errors(form) -}}
+    {{- form_help(form) -}}
+    </div>
+    {% endblock %}
+
+    {# ============================================
+    DROPZONE - With Preview Support
+    ============================================ #}
+    {% block dropzone_row %}
+    {% set widget_attr = {} %}
+    {% if help is not empty %}
+    {% set widget_attr = {attr: {'aria-describedby': id ~"_help"}} %}
+    {% endif %}
+
+    <div class="{{ row_attr.class|default('') }}">
+        {% if label is not same as(false) %}
+        <label for="{{ id }}" class="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1.5">
+            {{- translation_domain is same as(false) ? label : label|trans(label_translation_parameters|default({}),
+            translation_domain) -}}
+            {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
+        </label>
+        {% endif %}
+
+        {# Preview existing image if data-preview-url is set #}
+        {% if attr['data-preview-url']|default(null) %}
+        <div class="mb-4">
+            <div class="inline-block relative group">
+                <img src="{{ attr['data-preview-url'] }}"
+                    class="max-h-48 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+                    alt="{{ attr['data-preview-filename']|default('Current image') }}">
+                <div
+                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                    <span class="text-white text-xs font-medium">{{ attr['data-preview-filename']|default('Current
+                        file') }}</span>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 italic mt-2">
+                Image actuelle (sera remplacée si vous glissez un nouveau fichier)
+            </p>
+        </div>
+        {% endif %}
+
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+    {% endblock dropzone_row %}

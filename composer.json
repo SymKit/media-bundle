@@ -1,0 +1,32 @@
+{
+    "name": "symkit/media-bundle",
+    "type": "symfony-bundle",
+    "description": "A powerful, modern media management bundle for Symfony applications, designed for performance, flexibility, and a premium UI/UX.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Symkit\\MediaBundle\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.2",
+        "symfony/framework-bundle": "7.*|8.*",
+        "symkit/crud-bundle": "~0.0.1",
+        "symkit/form-bundle": "~0.0.1",
+        "symkit/metadata-bundle": "~0.0.1",
+        "symkit/menu-bundle": "~0.0.1"
+    },
+    "require-dev": {
+        "symkit/bundle-ai-kit": "~0.0.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "symkit/bundle-ai-kit": true
+        }
+    },
+    "extra": {
+        "bundle-ai-kit": {
+            "editors": ["cursor"]
+        }
+    }
+}
