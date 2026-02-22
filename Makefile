@@ -16,7 +16,7 @@ deptrac:
 	vendor/bin/deptrac analyse --config-file=deptrac.yaml
 
 infection:
-	vendor/bin/infection --configuration=infection.json5 --threads=max --only-covered --min-msi=65 --min-covered-msi=65
+	vendor/bin/infection --configuration=infection.json5 --threads=max --min-msi=65 --min-covered-msi=65
 
 security-check:
 	composer audit --abandoned=report
