@@ -6,6 +6,7 @@
 /.phpunit.result.cache
 /infection.log
 /infection-summary.log
+.infection-tmp/
 /config/reference.php
 phpunit.xml
 phpstan.neon

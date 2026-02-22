@@ -6,6 +6,7 @@
     "text": "infection.log",
     "summary": "infection-summary.log"
   },
+  "tmpDir": ".infection-tmp",
   "minMsi": 65,
   "minCoveredMsi": 65,
   "mutators": {
