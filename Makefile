@@ -1,4 +1,4 @@
-.PHONY: cs-fix cs-check phpstan test deptrac infection security-check lint quality ci install-hooks
+.PHONY: cs-fix cs-check phpstan test deptrac infection security-check lint quality ci
 
 cs-fix:
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
@@ -16,7 +16,7 @@ deptrac:
 	vendor/bin/deptrac analyse --config-file=deptrac.yaml
 
 infection:
-	vendor/bin/infection --configuration=infection.json5 --threads=max --min-msi=65 --min-covered-msi=65
+	vendor/bin/infection --configuration=infection.json5 --threads=max --only-covered --min-msi=65 --min-covered-msi=65
 
 security-check:
 	composer audit --abandoned=report
@@ -27,7 +27,3 @@ lint:
 quality: cs-check phpstan deptrac lint test infection
 
 ci: security-check quality
-
-install-hooks:
-	cp scripts/git-hooks/commit-msg .git/hooks/commit-msg
-	chmod +x .git/hooks/commit-msg

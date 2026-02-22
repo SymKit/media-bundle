@@ -153,18 +153,7 @@ $builder->add('image', MediaType::class);
 
 ### Bundle test suite
 
-From the bundle root:
-
-```bash
-composer install
-composer test
-```
-
-Or directly:
-
-```bash
-./vendor/bin/phpunit
-```
+From the bundle root, run `make test`. After `composer install`, you can also run `make quality` for the full pipeline (cs-check, phpstan, deptrac, lint, test, infection).
 
 The suite includes unit tests (services, form transformer, security rules, Live Components, search provider), integration tests (bundle boot, config, services), and functional tests (API upload).
 
@@ -189,7 +178,6 @@ These steps can be automated with E2E tools (e.g. Playwright, Mink) or run as a 
 ## Contributing
 
 - Run the quality pipeline: `make quality` (or `make cs-fix`, `make phpstan`, `make test`).
-- To install the git hook that strips `Co-authored-by:` lines from commit messages (e.g. if your IDE adds them), run: `make install-hooks`.
 
 ## License
 
