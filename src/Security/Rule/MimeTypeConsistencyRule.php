@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mime\MimeTypes;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class MimeTypeConsistencyRule implements SecurityRuleInterface
+final readonly class MimeTypeConsistencyRule implements SecurityRuleInterface
 {
     public function check(UploadedFile $file): void
     {

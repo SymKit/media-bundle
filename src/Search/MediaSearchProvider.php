@@ -6,6 +6,7 @@ namespace Symkit\MediaBundle\Search;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
 use Symkit\SearchBundle\Contract\SearchProviderInterface;
 use Symkit\SearchBundle\Model\SearchResult;
@@ -26,9 +27,12 @@ final readonly class MediaSearchProvider implements SearchProviderInterface
         $mediaItems = $this->mediaRepository->findForGlobalSearch($query);
 
         foreach ($mediaItems as $media) {
+            if (!$media instanceof Media) {
+                continue;
+            }
             yield new SearchResult(
-                title: $media->getOriginalFilename() ?? $media->getFilename(),
-                subtitle: $media->getAltText() ?? $media->getMimeType(),
+                title: $media->getOriginalFilename() ?? $media->getFilename() ?? '',
+                subtitle: $media->getAltText() ?? $media->getMimeType() ?? '',
                 url: $this->urlGenerator->generate('admin_media_list'),
                 icon: 'heroicons:photo-20-solid',
                 badge: null,

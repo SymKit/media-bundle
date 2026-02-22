@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Processor;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Contract\FileProcessorInterface as ContractFileProcessorInterface;
 
-interface FileProcessorInterface
+/**
+ * @deprecated Use Symkit\MediaBundle\Contract\FileProcessorInterface instead
+ */
+interface FileProcessorInterface extends ContractFileProcessorInterface
 {
-    /**
-     * Processes the file (e.g., modifies content, strips metadata).
-     */
-    public function process(UploadedFile $file): void;
 }

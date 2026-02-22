@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security\Rule;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Contract\SecurityRuleInterface as ContractSecurityRuleInterface;
 
-interface SecurityRuleInterface
+/**
+ * @deprecated Use Symkit\MediaBundle\Contract\SecurityRuleInterface instead
+ */
+interface SecurityRuleInterface extends ContractSecurityRuleInterface
 {
-    /**
-     * Checks the file for security threats.
-     *
-     * @throws \Symkit\MediaBundle\Security\SecurityException If a threat is detected
-     */
-    public function check(UploadedFile $file): void;
 }

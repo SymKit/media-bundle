@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-final class LocalStorage implements StorageInterface
+final readonly class LocalStorage implements StorageInterface
 {
     public function __construct(
         private readonly SluggerInterface $slugger,

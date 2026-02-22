@@ -8,20 +8,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
+use Symkit\MediaBundle\Form\DataTransformer\MediaToIdTransformer;
 
-class MediaType extends AbstractType
+final class MediaType extends AbstractType
 {
     public function __construct(
-        private readonly MediaRepositoryInterface $mediaRepository,
-        private readonly TranslatorInterface $translator,
+        private readonly MediaToIdTransformer $mediaToIdTransformer,
     ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new DataTransformer\MediaToIdTransformer($this->mediaRepository, $this->translator));
+        $builder->addModelTransformer($this->mediaToIdTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

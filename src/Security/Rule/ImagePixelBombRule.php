@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class ImagePixelBombRule implements SecurityRuleInterface
+final readonly class ImagePixelBombRule implements SecurityRuleInterface
 {
     private const MAX_PIXELS = 100_000_000; // 100 Megapixels
 

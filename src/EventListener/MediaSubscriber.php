@@ -13,7 +13,7 @@ use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Form\Type\MediaUploadType;
 use Symkit\MediaBundle\Service\MediaManager;
 
-class MediaSubscriber implements EventSubscriberInterface
+final readonly class MediaSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly MediaManager $mediaManager,
@@ -65,7 +65,9 @@ class MediaSubscriber implements EventSubscriberInterface
             $type = $config->getType()->getInnerType();
 
             if ($type instanceof MediaUploadType) {
-                return $child->getData();
+                $data = $child->getData();
+
+                return $data instanceof UploadedFile ? $data : null;
             }
 
             if ($child->count() > 0) {

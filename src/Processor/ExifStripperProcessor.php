@@ -6,7 +6,7 @@ namespace Symkit\MediaBundle\Processor;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-final class ExifStripperProcessor implements FileProcessorInterface
+final readonly class ExifStripperProcessor implements FileProcessorInterface
 {
     public function process(UploadedFile $file): void
     {

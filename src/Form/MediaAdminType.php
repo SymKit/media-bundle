@@ -17,7 +17,7 @@ use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Form\Type\MediaUploadType;
 use Symkit\MediaBundle\Service\MediaUrlGenerator;
 
-class MediaAdminType extends AbstractType
+final class MediaAdminType extends AbstractType
 {
     private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
 

@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class SvgSecurityRule implements SecurityRuleInterface
+final readonly class SvgSecurityRule implements SecurityRuleInterface
 {
     private const FORBIDDEN_TAGS = ['script', 'foreignObject', 'iframe', 'object', 'embed'];
     private const FORBIDDEN_ATTRIBUTES = ['on', 'href', 'xlink:href']; // 'href' can contain 'javascript:'
@@ -45,7 +45,10 @@ final class SvgSecurityRule implements SecurityRuleInterface
             throw new SecurityException('Invalid SVG XML content.');
         }
 
-        $this->validateNode($dom->documentElement);
+        $root = $dom->documentElement;
+        if (null !== $root) {
+            $this->validateNode($root);
+        }
         libxml_clear_errors();
     }
 

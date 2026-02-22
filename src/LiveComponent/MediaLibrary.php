@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\LiveComponent;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -12,7 +13,6 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
-use Symkit\MediaBundle\Service\MediaManager;
 use Symkit\MediaBundle\Service\MediaUrlGenerator;
 
 final class MediaLibrary
@@ -40,14 +40,18 @@ final class MediaLibrary
 
     public function __construct(
         private readonly MediaRepositoryInterface $mediaRepository,
-        private readonly MediaManager $mediaManager,
         private readonly MediaUrlGenerator $urlGenerator,
     ) {
     }
 
-    public function getMedias(): \Doctrine\ORM\Tools\Pagination\Paginator
+    /**
+     * @return Paginator<object>
+     */
+    public function getMedias(): Paginator
     {
-        return $this->mediaRepository->search($this->query, $this->page, $this->limit);
+        $page = $this->page ?? 1;
+
+        return $this->mediaRepository->search($this->query, $page, $this->limit);
     }
 
     #[LiveListener('filterUpdated')]
@@ -57,6 +61,9 @@ final class MediaLibrary
         $this->page = 1;
     }
 
+    /**
+     * @param array<string, mixed>|null $payload
+     */
     #[LiveListener('media:uploaded')]
     public function onMediaUploaded(#[LiveArg] ?array $payload = null): void
     {
@@ -65,12 +72,7 @@ final class MediaLibrary
 
         // If we want to auto-select, we can use the payload
         // $payload contains ['id' => ..., 'url' => ...] from the controller
-        if ($payload && isset($payload['id'])) {
-            // We can optionally select it.
-            // $this->selectMedia($payload['id']);
-            // But let's just refresh for now as per plan,
-            // user might want to see it first.
-            // Actually, "Auto-Select" was in the plan.
+        if ($payload && isset($payload['id']) && is_numeric($payload['id'])) {
             $this->selectMedia((int) $payload['id']);
         }
     }
@@ -79,7 +81,7 @@ final class MediaLibrary
     public function selectMedia(#[LiveArg] int $id): void
     {
         $media = $this->mediaRepository->find($id);
-        if (!$media) {
+        if (!$media instanceof Media) {
             return;
         }
 

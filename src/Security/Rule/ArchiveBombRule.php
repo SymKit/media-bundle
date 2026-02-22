@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class ArchiveBombRule implements SecurityRuleInterface
+final readonly class ArchiveBombRule implements SecurityRuleInterface
 {
     private const MAX_COMPRESSION_RATIO = 100; // 1:100 max
 

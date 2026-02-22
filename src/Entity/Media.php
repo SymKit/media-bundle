@@ -50,6 +50,16 @@ class Media
         return $this->id;
     }
 
+    /**
+     * Used by Doctrine when hydrating. Not for application use.
+     */
+    public function setId(?int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getFilename(): ?string
     {
         return $this->filename;

@@ -36,7 +36,9 @@ final class MediaPicker
             return null;
         }
 
-        return $this->mediaRepository->find($this->mediaId);
+        $media = $this->mediaRepository->find($this->mediaId);
+
+        return $media instanceof Media ? $media : null;
     }
 
     #[LiveAction]

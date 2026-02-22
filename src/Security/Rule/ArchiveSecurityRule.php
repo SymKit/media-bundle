@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class ArchiveSecurityRule implements SecurityRuleInterface
+final readonly class ArchiveSecurityRule implements SecurityRuleInterface
 {
     private const EXECUTABLE_MASK = (1 << 6) | (1 << 3) | 1; // --x--x--x
     private const MAX_DEPTH = 10;

@@ -32,7 +32,8 @@
         "friendsofphp/php-cs-fixer": "^3.94",
         "phpstan/phpstan": "^2.1",
         "deptrac/deptrac": "^4.6",
-        "infection/infection": "^0.32.5"
+        "infection/infection": "^0.32.5",
+        "phpro/grumphp": "^2.0"
     },
     "config": {
         "allow-plugins": {

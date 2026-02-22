@@ -1,4 +1,4 @@
-.PHONY: cs-fix cs-check phpstan test deptrac infection security-check quality ci install-hooks
+.PHONY: cs-fix cs-check phpstan test deptrac infection security-check lint quality ci install-hooks
 
 cs-fix:
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
@@ -21,7 +21,10 @@ infection:
 security-check:
 	composer audit --abandoned=report
 
-quality: cs-check phpstan deptrac test
+lint:
+	composer validate --strict
+
+quality: cs-check phpstan deptrac lint test infection
 
 ci: security-check quality
 

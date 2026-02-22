@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\Rule\SecurityRuleInterface;
 
-final class FileSecurityScanner implements FileSecurityScannerInterface
+final readonly class FileSecurityScanner implements FileSecurityScannerInterface
 {
     /**
      * @param iterable<SecurityRuleInterface> $rules

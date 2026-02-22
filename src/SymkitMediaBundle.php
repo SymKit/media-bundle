@@ -16,6 +16,7 @@ use Symkit\MediaBundle\Controller\Admin\MediaController;
 use Symkit\MediaBundle\Controller\Api\UploadController;
 use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\EventListener\MediaSubscriber;
+use Symkit\MediaBundle\Form\DataTransformer\MediaToIdTransformer;
 use Symkit\MediaBundle\Form\MediaAdminType;
 use Symkit\MediaBundle\Form\MediaType;
 use Symkit\MediaBundle\Form\Type\MediaUploadType;
@@ -157,6 +158,7 @@ class SymkitMediaBundle extends AbstractBundle
             ->arg('$publicDir', $publicDir)
             ->arg('$mediaPrefix', $mediaPrefix);
 
+        $services->set(MediaToIdTransformer::class);
         $services->set(MediaType::class);
         $services->set(MediaUploadType::class);
         $services->set(MediaSubscriber::class);

@@ -11,7 +11,7 @@ use Symkit\MediaBundle\Security\FileSecurityScannerInterface;
 use Symkit\MediaBundle\Storage\StorageInterface;
 use Symkit\MediaBundle\Strategy\AltTextStrategyInterface;
 
-final class MediaManager
+final readonly class MediaManager
 {
     public function __construct(
         private readonly StorageInterface $storage,

@@ -6,7 +6,7 @@ namespace Symkit\MediaBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-final class NativeImageMetadataReader implements ImageMetadataReaderInterface
+final readonly class NativeImageMetadataReader implements ImageMetadataReaderInterface
 {
     public function readMetadata(UploadedFile $file): array
     {
@@ -17,8 +17,8 @@ final class NativeImageMetadataReader implements ImageMetadataReaderInterface
         }
 
         return [
-            'width' => $dimensions[0] ?? null,
-            'height' => $dimensions[1] ?? null,
+            'width' => $dimensions[0],
+            'height' => $dimensions[1],
         ];
     }
 }

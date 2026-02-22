@@ -10,7 +10,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-class MediaExtension extends AbstractExtension
+final class MediaExtension extends AbstractExtension
 {
     public function __construct(
         private readonly MediaUrlGenerator $urlGenerator,

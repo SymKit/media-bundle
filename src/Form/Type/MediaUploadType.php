@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
-class MediaUploadType extends AbstractType
+final class MediaUploadType extends AbstractType
 {
     private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
 

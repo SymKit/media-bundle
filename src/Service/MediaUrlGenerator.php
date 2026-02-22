@@ -6,7 +6,7 @@ namespace Symkit\MediaBundle\Service;
 
 use Symkit\MediaBundle\Entity\Media;
 
-final class MediaUrlGenerator
+final readonly class MediaUrlGenerator
 {
     public function __construct(
         private readonly string $publicDir,

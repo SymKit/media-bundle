@@ -3,6 +3,11 @@ deptrac:
     - src/
 
   layers:
+    - name: Contract
+      collectors:
+        - type: directory
+          value: src/Contract/.*
+
     - name: Controller
       collectors:
         - type: directory
@@ -54,11 +59,12 @@ deptrac:
           value: src/Search/.*
 
   ruleset:
-    Controller: [Service, Repository, Entity, Form, Security]
-    Entity: [Repository]
-    Form: [Entity, Service, Repository]
-    LiveComponent: [Service, Repository, Entity]
-    Repository: [Entity]
-    Service: [Repository, Entity, Security, Other]
-    Security: []
-    Other: [Service, Repository, Entity, Security, Form]
+    Contract: [Entity, Security]
+    Controller: [Contract, Service, Repository, Entity, Form, Security]
+    Entity: [Contract, Repository]
+    Form: [Contract, Entity, Service, Repository]
+    LiveComponent: [Contract, Service, Repository, Entity]
+    Repository: [Contract, Entity]
+    Service: [Contract, Repository, Entity, Security, Other]
+    Security: [Contract]
+    Other: [Contract, Service, Repository, Entity, Security, Form]

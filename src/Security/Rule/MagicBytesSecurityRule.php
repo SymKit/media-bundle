@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class MagicBytesSecurityRule implements SecurityRuleInterface
+final readonly class MagicBytesSecurityRule implements SecurityRuleInterface
 {
     public function check(UploadedFile $file): void
     {
@@ -20,6 +20,9 @@ final class MagicBytesSecurityRule implements SecurityRuleInterface
         $bytes = fread($handle, 4);
         fclose($handle);
 
+        if (false === $bytes) {
+            return;
+        }
         $magicBytes = bin2hex($bytes);
 
         // ELF (Linux executable)

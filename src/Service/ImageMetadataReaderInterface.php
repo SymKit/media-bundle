@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Contract\ImageMetadataReaderInterface as ContractImageMetadataReaderInterface;
 
-interface ImageMetadataReaderInterface
+/**
+ * @deprecated Use Symkit\MediaBundle\Contract\ImageMetadataReaderInterface instead
+ */
+interface ImageMetadataReaderInterface extends ContractImageMetadataReaderInterface
 {
-    /**
-     * Reads metadata (width, height) from the given file.
-     *
-     * @return array{width: int|null, height: int|null}
-     */
-    public function readMetadata(UploadedFile $file): array;
 }

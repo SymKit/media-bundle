@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\UX\Dropzone\DropzoneBundle;
 use Symfony\UX\LiveComponent\LiveComponentBundle;
@@ -84,7 +85,7 @@ final class BundleBootTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static::getContainer();
-        self::assertNotNull($container);
+        self::assertInstanceOf(ContainerInterface::class, $container);
     }
 
     public function testCoreServicesAreRegistered(): void

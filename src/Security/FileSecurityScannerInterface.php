@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Contract\FileSecurityScannerInterface as ContractFileSecurityScannerInterface;
 
-interface FileSecurityScannerInterface
+/**
+ * @deprecated Use Symkit\MediaBundle\Contract\FileSecurityScannerInterface instead
+ */
+interface FileSecurityScannerInterface extends ContractFileSecurityScannerInterface
 {
-    /**
-     * Scans the file for security threats.
-     *
-     * @throws SecurityException If a threat is detected
-     */
-    public function scan(UploadedFile $file): void;
 }

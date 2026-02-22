@@ -12,7 +12,7 @@ use Symkit\MediaBundle\Entity\Media;
 /**
  * @extends ServiceEntityRepository<object>
  */
-class MediaRepository extends ServiceEntityRepository implements MediaRepositoryInterface
+final class MediaRepository extends ServiceEntityRepository implements MediaRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry, string $entityClass)
     {
@@ -35,7 +35,10 @@ class MediaRepository extends ServiceEntityRepository implements MediaRepository
             ->setMaxResults($limit)
         ;
 
-        return new Paginator($qb);
+        /** @var Paginator<Media> $paginator */
+        $paginator = new Paginator($qb);
+
+        return $paginator;
     }
 
     /**
@@ -43,13 +46,15 @@ class MediaRepository extends ServiceEntityRepository implements MediaRepository
      */
     public function findForGlobalSearch(string $query, int $limit = 5): iterable
     {
-        return $this->createQueryBuilder('m')
+        /** @var iterable<Media> $result */
+        $result = $this->createQueryBuilder('m')
             ->where('m.filename LIKE :query OR m.altText LIKE :query OR m.originalFilename LIKE :query')
             ->setParameter('query', '%'.$query.'%')
             ->setMaxResults($limit)
             ->orderBy('m.createdAt', 'DESC')
             ->getQuery()
-            ->toIterable()
-        ;
+            ->toIterable();
+
+        return $result;
     }
 }

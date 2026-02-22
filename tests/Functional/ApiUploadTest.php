@@ -80,12 +80,15 @@ final class ApiUploadTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static::getContainer();
+        /** @var \Symkit\MediaBundle\Controller\Api\UploadController $controller */
         $controller = $container->get(\Symkit\MediaBundle\Controller\Api\UploadController::class);
         $request = Request::create('/upload', 'POST');
         $response = $controller->upload($request);
 
         self::assertSame(400, $response->getStatusCode());
-        $json = json_decode($response->getContent(), true);
+        $content = $response->getContent();
+        self::assertNotFalse($content);
+        $json = json_decode($content, true);
         self::assertIsArray($json);
         self::assertArrayHasKey('error', $json);
     }
@@ -94,6 +97,7 @@ final class ApiUploadTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static::getContainer();
+        /** @var \Symkit\MediaBundle\Controller\Api\UploadController $controller */
         $controller = $container->get(\Symkit\MediaBundle\Controller\Api\UploadController::class);
         $path = tempnam(sys_get_temp_dir(), 'symkit_media_');
         self::assertNotFalse($path);
@@ -103,7 +107,9 @@ final class ApiUploadTest extends KernelTestCase
         $response = $controller->upload($request);
 
         self::assertSame(400, $response->getStatusCode());
-        $json = json_decode($response->getContent(), true);
+        $content = $response->getContent();
+        self::assertNotFalse($content);
+        $json = json_decode($content, true);
         self::assertIsArray($json);
         self::assertArrayHasKey('error', $json);
     }

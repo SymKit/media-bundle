@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class ImageSpoofingRule implements SecurityRuleInterface
+final readonly class ImageSpoofingRule implements SecurityRuleInterface
 {
     public function check(UploadedFile $file): void
     {
@@ -19,7 +19,12 @@ final class ImageSpoofingRule implements SecurityRuleInterface
         // Try to create an image resource from the file content.
         // If it fails, it's likely not a valid image or a corrupted/spoofed one.
         // We use @ to suppress warnings as we handle the failure.
-        $image = @imagecreatefromstring(file_get_contents($file->getPathname()));
+        $content = file_get_contents($file->getPathname());
+
+        if (false === $content) {
+            return;
+        }
+        $image = @imagecreatefromstring($content);
 
         if (false === $image) {
             throw new SecurityException('The file claims to be an image but is not a valid raster format or is corrupted.');

@@ -10,7 +10,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
 
-final class MediaToIdTransformer implements DataTransformerInterface
+/**
+ * @implements DataTransformerInterface<mixed, int|null>
+ */
+final readonly class MediaToIdTransformer implements DataTransformerInterface
 {
     private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
 
@@ -20,15 +23,8 @@ final class MediaToIdTransformer implements DataTransformerInterface
     ) {
     }
 
-    /**
-     * @param Media|null $value
-     */
     public function transform(mixed $value): ?int
     {
-        if (null === $value) {
-            return null;
-        }
-
         if ($value instanceof Media) {
             return $value->getId();
         }
@@ -47,7 +43,7 @@ final class MediaToIdTransformer implements DataTransformerInterface
 
         $media = $this->repository->find($value);
 
-        if (null === $media) {
+        if (null === $media || !$media instanceof Media) {
             $message = $this->translator->trans('transformer.media_not_found', ['%id%' => $value], self::TRANSLATION_DOMAIN);
             throw new TransformationFailedException($message);
         }

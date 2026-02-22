@@ -7,7 +7,7 @@ namespace Symkit\MediaBundle\Security\Rule;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Security\SecurityException;
 
-final class FilenameSecurityRule implements SecurityRuleInterface
+final readonly class FilenameSecurityRule implements SecurityRuleInterface
 {
     private const ILLEGAL_CHARS = "\0\\/*$?\n\t\r\"';";
 
