@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Service;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Processor\FileProcessorInterface;
 use Symkit\MediaBundle\Security\FileSecurityScannerInterface;
 use Symkit\MediaBundle\Storage\StorageInterface;
 use Symkit\MediaBundle\Strategy\AltTextStrategyInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class MediaManager
 {

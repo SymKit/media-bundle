@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security\Rule;
 
-use DOMAttr;
-use DOMDocument;
-use DOMElement;
-use DOMNode;
-use Symkit\MediaBundle\Security\SecurityException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Security\SecurityException;
 
 final class SvgSecurityRule implements SecurityRuleInterface
 {
@@ -34,7 +30,7 @@ final class SvgSecurityRule implements SecurityRuleInterface
         }
 
         // 2. Strict XML parsing to detect XXE and advanced XSS
-        $dom = new DOMDocument();
+        $dom = new \DOMDocument();
 
         // Disable external entities to prevent XXE
         $previousEntityLoader = libxml_disable_entity_loader(true);
@@ -53,15 +49,15 @@ final class SvgSecurityRule implements SecurityRuleInterface
         libxml_clear_errors();
     }
 
-    private function validateNode(DOMNode $node): void
+    private function validateNode(\DOMNode $node): void
     {
-        if ($node instanceof DOMElement) {
+        if ($node instanceof \DOMElement) {
             if (\in_array(mb_strtolower($node->tagName), self::FORBIDDEN_TAGS, true)) {
                 throw new SecurityException(\sprintf('Forbidden tag <%s> detected in SVG.', $node->tagName));
             }
 
             foreach ($node->attributes as $attr) {
-                /** @var DOMAttr $attr */
+                /** @var \DOMAttr $attr */
                 $name = mb_strtolower($attr->name);
                 $value = mb_strtolower($attr->value);
 

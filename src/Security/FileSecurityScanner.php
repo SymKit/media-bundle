@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security;
 
-use Symkit\MediaBundle\Security\Rule\SecurityRuleInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Security\Rule\SecurityRuleInterface;
 
 final class FileSecurityScanner implements FileSecurityScannerInterface
 {

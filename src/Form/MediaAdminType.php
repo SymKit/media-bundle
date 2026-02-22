@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Form;
 
-use Symkit\FormBundle\Form\Type\FormSectionType;
-use Symkit\MediaBundle\Entity\Media;
-use Symkit\MediaBundle\Form\Type\MediaUploadType;
-use Symkit\MediaBundle\Service\MediaUrlGenerator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,11 +11,23 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symkit\FormBundle\Form\Type\FormSectionType;
+use Symkit\MediaBundle\Entity\Media;
+use Symkit\MediaBundle\Form\Type\MediaUploadType;
+use Symkit\MediaBundle\Service\MediaUrlGenerator;
 
 class MediaAdminType extends AbstractType
 {
+    private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
+
+    /**
+     * @param class-string $entityClass
+     */
     public function __construct(
         private readonly MediaUrlGenerator $urlGenerator,
+        private readonly string $entityClass,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -29,7 +37,7 @@ class MediaAdminType extends AbstractType
             $media = $event->getData();
             $form = $event->getForm();
 
-            $placeholderText = 'Drag and drop a file or click to upload';
+            $placeholderText = $this->translator->trans('form.placeholder', [], self::TRANSLATION_DOMAIN);
             $dropzoneAttr = [
                 'placeholder' => $placeholderText,
             ];
@@ -43,9 +51,9 @@ class MediaAdminType extends AbstractType
             $form->add(
                 $builder->create('file_section', FormSectionType::class, [
                     'inherit_data' => true,
-                    'label' => 'File',
+                    'label' => $this->translator->trans('form.file_section.label', [], self::TRANSLATION_DOMAIN),
                     'section_icon' => 'heroicons:document-plus-20-solid',
-                    'section_description' => 'Upload or replace the media file.',
+                    'section_description' => $this->translator->trans('form.file_section.description', [], self::TRANSLATION_DOMAIN),
                     'auto_initialize' => false,
                 ])
                     ->add('file', MediaUploadType::class, [
@@ -54,29 +62,29 @@ class MediaAdminType extends AbstractType
                         'attr' => $dropzoneAttr,
                         'constraints' => $options['is_new'] ? [new NotBlank(['groups' => ['create']])] : [],
                     ])
-                    ->getForm()
+                    ->getForm(),
             );
         });
 
         $builder->add(
             $builder->create('general', FormSectionType::class, [
                 'inherit_data' => true,
-                'label' => 'General',
+                'label' => $this->translator->trans('form.general.label', [], self::TRANSLATION_DOMAIN),
                 'section_icon' => 'heroicons:information-circle-20-solid',
-                'section_description' => 'Meta information about the media.',
+                'section_description' => $this->translator->trans('form.general.description', [], self::TRANSLATION_DOMAIN),
             ])
                 ->add('altText', TextType::class, [
-                    'label' => 'Alternative Text',
+                    'label' => $this->translator->trans('form.alt_text.label', [], self::TRANSLATION_DOMAIN),
                     'required' => false,
-                    'help' => 'Description for accessibility (alt tag).',
-                ])
+                    'help' => $this->translator->trans('form.alt_text.help', [], self::TRANSLATION_DOMAIN),
+                ]),
         );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Media::class,
+            'data_class' => $this->entityClass,
             'is_new' => false,
         ]);
 

@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Search;
 
-use Symkit\MediaBundle\Repository\MediaRepository;
-use Sedie\SearchBundle\Model\SearchResult;
-use Sedie\SearchBundle\Provider\SearchProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
+use Symkit\SearchBundle\Contract\SearchProviderInterface;
+use Symkit\SearchBundle\Model\SearchResult;
 
 final readonly class MediaSearchProvider implements SearchProviderInterface
 {
+    private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
+
     public function __construct(
-        private MediaRepository $mediaRepository,
+        private MediaRepositoryInterface $mediaRepository,
         private UrlGeneratorInterface $urlGenerator,
+        private TranslatorInterface $translator,
     ) {
     }
 
@@ -34,7 +38,7 @@ final readonly class MediaSearchProvider implements SearchProviderInterface
 
     public function getCategory(): string
     {
-        return 'Media';
+        return $this->translator->trans('search.category', [], self::TRANSLATION_DOMAIN);
     }
 
     public function getPriority(): int

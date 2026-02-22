@@ -10,13 +10,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symkit\MediaBundle\Entity\Media;
 
 /**
- * @extends ServiceEntityRepository<Media>
+ * @extends ServiceEntityRepository<object>
  */
-class MediaRepository extends ServiceEntityRepository
+class MediaRepository extends ServiceEntityRepository implements MediaRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $entityClass)
     {
-        parent::__construct($registry, Media::class);
+        parent::__construct($registry, $entityClass);
     }
 
     public function search(string $query, int $page = 1, int $limit = 24): Paginator
@@ -27,7 +27,7 @@ class MediaRepository extends ServiceEntityRepository
 
         if ($query) {
             $qb->andWhere('m.filename LIKE :query OR m.altText LIKE :query OR m.originalFilename LIKE :query')
-                ->setParameter('query', '%' . $query . '%')
+                ->setParameter('query', '%'.$query.'%')
             ;
         }
 
@@ -45,7 +45,7 @@ class MediaRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('m')
             ->where('m.filename LIKE :query OR m.altText LIKE :query OR m.originalFilename LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('query', '%'.$query.'%')
             ->setMaxResults($limit)
             ->orderBy('m.createdAt', 'DESC')
             ->getQuery()

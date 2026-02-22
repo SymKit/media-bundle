@@ -1,0 +1,6 @@
+#!/bin/sh
+# Strip Co-authored-by lines from commit message (IDE may add them).
+# Usage: copy to .git/hooks/commit-msg with make install-hooks
+tmp=$(mktemp)
+grep -v -E '^[[:space:]]*Co-authored-by:' "$1" > "$tmp"
+mv "$tmp" "$1"

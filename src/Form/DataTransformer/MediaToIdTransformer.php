@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Form\DataTransformer;
 
-use Symkit\MediaBundle\Entity\Media;
-use Symkit\MediaBundle\Repository\MediaRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symkit\MediaBundle\Entity\Media;
+use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
 
 final class MediaToIdTransformer implements DataTransformerInterface
 {
+    private const TRANSLATION_DOMAIN = 'SymkitMediaBundle';
+
     public function __construct(
-        private readonly MediaRepository $repository,
+        private readonly MediaRepositoryInterface $repository,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -44,7 +48,8 @@ final class MediaToIdTransformer implements DataTransformerInterface
         $media = $this->repository->find($value);
 
         if (null === $media) {
-            throw new TransformationFailedException(\sprintf('Media with id "%s" not found', $value));
+            $message = $this->translator->trans('transformer.media_not_found', ['%id%' => $value], self::TRANSLATION_DOMAIN);
+            throw new TransformationFailedException($message);
         }
 
         return $media;

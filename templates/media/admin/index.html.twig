@@ -1,13 +1,13 @@
 {% extends base_layout %}
 
-{% block page_title %}{{ page_title|default('Media Library')|trans }}{% endblock %}
-{% block page_description %}{{ page_description|default('')|trans }}{% endblock %}
+{% block page_title %}{{ page_title|default('admin.list.title')|trans({}, 'SymkitMediaBundle') }}{% endblock %}
+{% block page_description %}{{ page_description|default('')|trans({}, 'SymkitMediaBundle') }}{% endblock %}
 
 {% block header_actions %}
 <a href="{{ path('admin_media_create') }}"
     class="inline-flex items-center gap-2 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-all shadow-sm shadow-indigo-200 dark:shadow-none">
     {{ ux_icon('heroicons:plus-20-solid', {class: 'w-5 h-5'}) }}
-    {{ 'Upload Media'|trans }}
+    {{ 'admin.create.title'|trans({}, 'SymkitMediaBundle') }}
 </a>
 {% endblock %}
 

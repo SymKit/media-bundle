@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security\Rule;
 
-use Symkit\MediaBundle\Security\SecurityException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Security\SecurityException;
 
 final class MagicBytesSecurityRule implements SecurityRuleInterface
 {

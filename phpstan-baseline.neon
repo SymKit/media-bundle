@@ -1,0 +1,199 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method object\:\:getId\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Api/UploadController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getOriginalFilename\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Api/UploadController.php
+
+		-
+			message: '#^Parameter \#1 \$media of method Symkit\\MediaBundle\\Service\\MediaUrlGenerator\:\:generateUrl\(\) expects Symkit\\MediaBundle\\Entity\\Media\|null, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/UploadController.php
+
+		-
+			message: '#^Property Symkit\\MediaBundle\\Controller\\Api\\UploadController\:\:\$mediaManager is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Controller/Api/UploadController.php
+
+		-
+			message: '#^Property Symkit\\MediaBundle\\Controller\\Api\\UploadController\:\:\$validator is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Controller/Api/UploadController.php
+
+		-
+			message: '#^Property Symkit\\MediaBundle\\Entity\\Media\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Media.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\EventListener\\MediaSubscriber\:\:getFileFromForm\(\) should return Symfony\\Component\\HttpFoundation\\File\\UploadedFile\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/EventListener/MediaSubscriber.php
+
+		-
+			message: '#^Class Symkit\\MediaBundle\\Form\\DataTransformer\\MediaToIdTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Form/DataTransformer/MediaToIdTransformer.php
+
+		-
+			message: '#^Instanceof between Symkit\\MediaBundle\\Entity\\Media and Symkit\\MediaBundle\\Entity\\Media will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Form/DataTransformer/MediaToIdTransformer.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\Form\\DataTransformer\\MediaToIdTransformer\:\:reverseTransform\(\) should return Symkit\\MediaBundle\\Entity\\Media\|null but returns object\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Form/DataTransformer/MediaToIdTransformer.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/Form/DataTransformer/MediaToIdTransformer.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\LiveComponent\\MediaLibrary\:\:getMedias\(\) return type with generic class Doctrine\\ORM\\Tools\\Pagination\\Paginator does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/LiveComponent/MediaLibrary.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\LiveComponent\\MediaLibrary\:\:onMediaUploaded\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LiveComponent/MediaLibrary.php
+
+		-
+			message: '#^Parameter \#1 \$media of method Symkit\\MediaBundle\\Service\\MediaUrlGenerator\:\:generateUrl\(\) expects Symkit\\MediaBundle\\Entity\\Media\|null, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/LiveComponent/MediaLibrary.php
+
+		-
+			message: '#^Parameter \#2 \$page of method Symkit\\MediaBundle\\Repository\\MediaRepositoryInterface\:\:search\(\) expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/LiveComponent/MediaLibrary.php
+
+		-
+			message: '#^Property Symkit\\MediaBundle\\LiveComponent\\MediaLibrary\:\:\$mediaManager is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/LiveComponent/MediaLibrary.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\LiveComponent\\MediaPicker\:\:getMedia\(\) should return Symkit\\MediaBundle\\Entity\\Media\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/LiveComponent/MediaPicker.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\Repository\\MediaRepository\:\:findForGlobalSearch\(\) should return iterable\<Symkit\\MediaBundle\\Entity\\Media\> but returns iterable\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Repository/MediaRepository.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\Repository\\MediaRepository\:\:search\(\) return type with generic class Doctrine\\ORM\\Tools\\Pagination\\Paginator does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/MediaRepository.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\Repository\\MediaRepositoryInterface\:\:search\(\) return type with generic class Doctrine\\ORM\\Tools\\Pagination\\Paginator does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/MediaRepositoryInterface.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getAltText\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Search/MediaSearchProvider.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getFilename\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Search/MediaSearchProvider.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getMimeType\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Search/MediaSearchProvider.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getOriginalFilename\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Search/MediaSearchProvider.php
+
+		-
+			message: '#^Parameter \#1 \$data of function imagecreatefromstring expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Security/Rule/ImageSpoofingRule.php
+
+		-
+			message: '#^Parameter \#1 \$string of function bin2hex expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Security/Rule/MagicBytesSecurityRule.php
+
+		-
+			message: '#^Parameter \#1 \$node of method Symkit\\MediaBundle\\Security\\Rule\\SvgSecurityRule\:\:validateNode\(\) expects DOMNode, DOMElement\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Security/Rule/SvgSecurityRule.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: src/Service/NativeImageMetadataReader.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: src/Service/NativeImageMetadataReader.php
+
+		-
+			message: '#^Method Symkit\\MediaBundle\\Strategy\\FilenameAltTextStrategy\:\:generateAltText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Strategy/FilenameAltTextStrategy.php
+
+		-
+			message: '#^Call to an undefined method object\:\:upload\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/Functional/ApiUploadTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with Symfony\\Component\\DependencyInjection\\Container will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Integration/BundleBootTest.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Symkit\\MediaBundle\\Form\\DataTransformer\\MediaToIdTransformer\:\:transform\(\) expects Symkit\\MediaBundle\\Entity\\Media\|null, stdClass given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Form/DataTransformer/MediaToIdTransformerTest.php

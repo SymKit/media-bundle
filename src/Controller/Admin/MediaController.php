@@ -4,28 +4,39 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Controller\Admin;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symkit\CrudBundle\Controller\AbstractCrudController;
-use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Form\MediaAdminType;
+use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
 use Symkit\MenuBundle\Attribute\ActiveMenu;
 use Symkit\MetadataBundle\Attribute\Breadcrumb;
 use Symkit\MetadataBundle\Attribute\Seo;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/media')]
 final class MediaController extends AbstractCrudController
 {
-    #[Route('', name: 'admin_media_list')]
-    #[Seo(title: 'Media Library', description: 'Manage your uploaded files.')]
+    /**
+     * @param class-string $entityClass
+     */
+    public function __construct(
+        \Symkit\CrudBundle\Contract\CrudPersistenceManagerInterface $persistenceManager,
+        \Symkit\MetadataBundle\Contract\PageContextBuilderInterface $pageContextBuilder,
+        private readonly string $entityClass,
+        private readonly MediaRepositoryInterface $mediaRepository,
+    ) {
+        parent::__construct($persistenceManager, $pageContextBuilder);
+    }
+
+    #[Seo(title: 'admin.list.title', description: 'admin.list.description')]
     #[Breadcrumb(context: 'admin')]
     #[ActiveMenu('content_cat', 'media')]
     public function list(Request $request): Response
     {
         return $this->renderIndex($request, [
-            'page_title' => 'Media Library',
-            'page_description' => 'Manage your uploaded files.',
+            'page_title' => new TranslatableMessage('admin.list.title', [], 'SymkitMediaBundle'),
+            'page_description' => new TranslatableMessage('admin.list.description', [], 'SymkitMediaBundle'),
         ]);
     }
 
@@ -36,7 +47,7 @@ final class MediaController extends AbstractCrudController
 
     protected function getEntityClass(): string
     {
-        return Media::class;
+        return $this->entityClass;
     }
 
     protected function getNewFormOptions(object $entity): array
@@ -63,31 +74,40 @@ final class MediaController extends AbstractCrudController
         return 'admin_media';
     }
 
-    #[Route('/create', name: 'admin_media_create')]
-    #[Seo(title: 'Upload Media', description: 'Add a new file to the library.')]
+    #[Seo(title: 'admin.create.title', description: 'admin.create.description')]
     #[Breadcrumb(context: 'admin')]
     #[ActiveMenu('content_cat', 'media')]
     public function create(Request $request): Response
     {
-        return $this->renderNew(new Media(), $request, [
-            'page_title' => 'Upload Media',
+        $entity = new $this->entityClass();
+
+        return $this->renderNew($entity, $request, [
+            'page_title' => new TranslatableMessage('admin.create.title', [], 'SymkitMediaBundle'),
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'admin_media_edit')]
-    #[Seo(title: 'Edit Media', description: 'Update file information.')]
+    #[Seo(title: 'admin.edit.title', description: 'admin.edit.description')]
     #[Breadcrumb(context: 'admin')]
     #[ActiveMenu('content_cat', 'media')]
-    public function edit(Media $media, Request $request): Response
+    public function edit(int $id, Request $request): Response
     {
+        $media = $this->mediaRepository->find($id);
+        if (null === $media) {
+            throw new NotFoundHttpException(\sprintf('Media with id "%d" not found.', $id));
+        }
+
         return $this->renderEdit($media, $request, [
-            'page_title' => 'Edit Media',
+            'page_title' => new TranslatableMessage('admin.edit.title', [], 'SymkitMediaBundle'),
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'admin_media_delete', methods: ['POST'])]
-    public function delete(Media $media, Request $request): Response
+    public function delete(int $id, Request $request): Response
     {
+        $media = $this->mediaRepository->find($id);
+        if (null === $media) {
+            throw new NotFoundHttpException(\sprintf('Media with id "%d" not found.', $id));
+        }
+
         return $this->performDelete($media, $request);
     }
 }

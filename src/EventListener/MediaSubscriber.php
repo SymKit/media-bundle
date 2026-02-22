@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\EventListener;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symkit\CrudBundle\Enum\CrudEvents;
 use Symkit\CrudBundle\Event\CrudEvent;
 use Symkit\MediaBundle\Entity\Media;
 use Symkit\MediaBundle\Form\Type\MediaUploadType;
 use Symkit\MediaBundle\Service\MediaManager;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MediaSubscriber implements EventSubscriberInterface
 {

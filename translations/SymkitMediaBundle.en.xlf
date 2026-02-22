@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="SymkitMediaBundle">
+        <body>
+            <trans-unit id="admin.list.title"><source>Media Library</source></trans-unit>
+            <trans-unit id="admin.list.description"><source>Manage your uploaded files.</source></trans-unit>
+            <trans-unit id="admin.create.title"><source>Upload Media</source></trans-unit>
+            <trans-unit id="admin.create.description"><source>Add a new file to the library.</source></trans-unit>
+            <trans-unit id="admin.edit.title"><source>Edit Media</source></trans-unit>
+            <trans-unit id="admin.edit.description"><source>Update file information.</source></trans-unit>
+            <trans-unit id="form.file_section.label"><source>File</source></trans-unit>
+            <trans-unit id="form.file_section.description"><source>Upload or replace the media file.</source></trans-unit>
+            <trans-unit id="form.general.label"><source>General</source></trans-unit>
+            <trans-unit id="form.general.description"><source>Meta information about the media.</source></trans-unit>
+            <trans-unit id="form.alt_text.label"><source>Alternative Text</source></trans-unit>
+            <trans-unit id="form.alt_text.help"><source>Description for accessibility (alt tag).</source></trans-unit>
+            <trans-unit id="form.placeholder"><source>Drag and drop a file or click to upload</source></trans-unit>
+            <trans-unit id="form.media_file.label"><source>Media File</source></trans-unit>
+            <trans-unit id="form.mime_types_message"><source>Please upload a valid file</source></trans-unit>
+            <trans-unit id="transformer.media_not_found"><source>Media with id "%id%" not found</source></trans-unit>
+            <trans-unit id="api.error.no_file"><source>No file uploaded</source></trans-unit>
+            <trans-unit id="api.error.upload_failed"><source>Upload failed. Please try again.</source></trans-unit>
+            <trans-unit id="api.error.security"><source>This file was rejected for security reasons.</source></trans-unit>
+            <trans-unit id="search.category"><source>Media</source></trans-unit>
+            <trans-unit id="library.drop_file"><source>Drop file to upload</source></trans-unit>
+            <trans-unit id="library.search_placeholder"><source>Search media...</source></trans-unit>
+            <trans-unit id="library.upload"><source>Upload</source></trans-unit>
+            <trans-unit id="library.no_media"><source>No media found</source></trans-unit>
+            <trans-unit id="library.no_matches"><source>No matches for "%query%". Try distinct search terms.</source></trans-unit>
+            <trans-unit id="library.get_started"><source>Get started by uploading a new image.</source></trans-unit>
+            <trans-unit id="library.pagination_aria"><source>Pagination</source></trans-unit>
+            <trans-unit id="library.previous"><source>Previous</source></trans-unit>
+            <trans-unit id="library.next"><source>Next</source></trans-unit>
+            <trans-unit id="library.showing_results"><source>Showing %from% to %to% of %total% results</source></trans-unit>
+            <trans-unit id="library.delete_confirm"><source>Are you sure you want to delete this item?</source></trans-unit>
+            <trans-unit id="picker.replace"><source>Replace</source></trans-unit>
+            <trans-unit id="picker.remove"><source>Remove</source></trans-unit>
+            <trans-unit id="picker.select_image"><source>Select an image</source></trans-unit>
+            <trans-unit id="picker.select_media"><source>Select Media</source></trans-unit>
+            <trans-unit id="picker.close"><source>Close</source></trans-unit>
+        </body>
+    </file>
+</xliff>

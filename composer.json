@@ -8,25 +8,47 @@
             "Symkit\\MediaBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Symkit\\MediaBundle\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "7.*|8.*",
+        "symfony/framework-bundle": "^7.0 || ^8.0",
         "symkit/crud-bundle": "~0.0.1",
         "symkit/form-bundle": "~0.0.1",
         "symkit/metadata-bundle": "~0.0.1",
-        "symkit/menu-bundle": "~0.0.1"
+        "symkit/menu-bundle": "~0.0.1",
+        "symkit/search-bundle": "~0.0.1"
     },
     "require-dev": {
-        "symkit/bundle-ai-kit": "~0.0.1"
+        "nyholm/symfony-bundle-test": "^3.0",
+        "phpunit/phpunit": "^11.0",
+        "symfony/asset-mapper": "^7.0 || ^8.0",
+        "symfony/mime": "^7.0 || ^8.0",
+        "symfony/ux-dropzone": "^2.0",
+        "symkit/bundle-ai-kit": "~0.0.1",
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "phpstan/phpstan": "^2.1",
+        "deptrac/deptrac": "^4.6",
+        "infection/infection": "^0.32.5"
     },
     "config": {
         "allow-plugins": {
-            "symkit/bundle-ai-kit": true
+            "symkit/bundle-ai-kit": true,
+            "infection/extension-installer": true,
+            "phpro/grumphp": true
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     },
     "extra": {
         "bundle-ai-kit": {
-            "editors": ["cursor"]
+            "editors": [
+                "cursor"
+            ]
         }
     }
 }

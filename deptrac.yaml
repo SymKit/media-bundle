@@ -1,0 +1,64 @@
+deptrac:
+  paths:
+    - src/
+
+  layers:
+    - name: Controller
+      collectors:
+        - type: directory
+          value: src/Controller/.*
+
+    - name: Entity
+      collectors:
+        - type: directory
+          value: src/Entity/.*
+
+    - name: Form
+      collectors:
+        - type: directory
+          value: src/Form/.*
+
+    - name: LiveComponent
+      collectors:
+        - type: directory
+          value: src/LiveComponent/.*
+
+    - name: Repository
+      collectors:
+        - type: directory
+          value: src/Repository/.*
+
+    - name: Service
+      collectors:
+        - type: directory
+          value: src/Service/.*
+
+    - name: Security
+      collectors:
+        - type: directory
+          value: src/Security/.*
+
+    - name: Other
+      collectors:
+        - type: directory
+          value: src/EventListener/.*
+        - type: directory
+          value: src/Processor/.*
+        - type: directory
+          value: src/Storage/.*
+        - type: directory
+          value: src/Strategy/.*
+        - type: directory
+          value: src/Twig/.*
+        - type: directory
+          value: src/Search/.*
+
+  ruleset:
+    Controller: [Service, Repository, Entity, Form, Security]
+    Entity: [Repository]
+    Form: [Entity, Service, Repository]
+    LiveComponent: [Service, Repository, Entity]
+    Repository: [Entity]
+    Service: [Repository, Entity, Security, Other]
+    Security: []
+    Other: [Service, Repository, Entity, Security, Form]

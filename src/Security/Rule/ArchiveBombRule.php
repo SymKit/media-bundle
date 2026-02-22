@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security\Rule;
 
-use Exception;
-use PharData;
-use PharFileInfo;
-use Symkit\MediaBundle\Security\SecurityException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Security\SecurityException;
 
 final class ArchiveBombRule implements SecurityRuleInterface
 {
@@ -27,11 +24,11 @@ final class ArchiveBombRule implements SecurityRuleInterface
         }
 
         try {
-            $archive = new PharData($file->getPathname());
+            $archive = new \PharData($file->getPathname());
             $uncompressedSize = 0;
 
             foreach ($archive as $fileInArchive) {
-                /** @var PharFileInfo $fileInArchive */
+                /** @var \PharFileInfo $fileInArchive */
                 $uncompressedSize += $fileInArchive->getSize();
             }
 
@@ -40,7 +37,7 @@ final class ArchiveBombRule implements SecurityRuleInterface
             if ($ratio > self::MAX_COMPRESSION_RATIO) {
                 throw new SecurityException(\sprintf('High compression ratio detected (%.2f). Potential decompression bomb.', $ratio));
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Handled by other rules or logged elsewhere
         }
     }

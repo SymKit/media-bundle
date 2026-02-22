@@ -20,7 +20,7 @@ final class MediaUrlGenerator
             return null;
         }
 
-        return $this->mediaPrefix . $media->getFilename();
+        return $this->mediaPrefix.$media->getFilename();
     }
 
     public function getAbsolutePath(?Media $media): ?string
@@ -29,6 +29,6 @@ final class MediaUrlGenerator
             return null;
         }
 
-        return $this->publicDir . $this->mediaPrefix . $media->getFilename();
+        return $this->publicDir.$this->mediaPrefix.$media->getFilename();
     }
 }

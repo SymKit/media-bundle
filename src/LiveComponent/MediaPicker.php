@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\LiveComponent;
 
-use Symkit\MediaBundle\Entity\Media;
-use Symkit\MediaBundle\Repository\MediaRepository;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symkit\MediaBundle\Entity\Media;
+use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
 
-#[AsLiveComponent('media_picker', template: '@SymkitMedia/media/live_component/media_picker.html.twig')]
 final class MediaPicker
 {
     use DefaultActionTrait;
@@ -28,7 +26,7 @@ final class MediaPicker
     public bool $modalOpen = false;
 
     public function __construct(
-        private readonly MediaRepository $mediaRepository,
+        private readonly MediaRepositoryInterface $mediaRepository,
     ) {
     }
 

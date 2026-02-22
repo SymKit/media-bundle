@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\LiveComponent;
 
-use Symkit\MediaBundle\Entity\Media;
-use Symkit\MediaBundle\Repository\MediaRepository;
-use Symkit\MediaBundle\Service\MediaManager;
-use Symkit\MediaBundle\Service\MediaUrlGenerator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symkit\MediaBundle\Entity\Media;
+use Symkit\MediaBundle\Repository\MediaRepositoryInterface;
+use Symkit\MediaBundle\Service\MediaManager;
+use Symkit\MediaBundle\Service\MediaUrlGenerator;
 
-#[AsLiveComponent('media_library', template: '@SymkitMedia/media/live_component/media_library.html.twig')]
 final class MediaLibrary
 {
     use DefaultActionTrait;
@@ -41,7 +39,7 @@ final class MediaLibrary
     public string $context = '';
 
     public function __construct(
-        private readonly MediaRepository $mediaRepository,
+        private readonly MediaRepositoryInterface $mediaRepository,
         private readonly MediaManager $mediaManager,
         private readonly MediaUrlGenerator $urlGenerator,
     ) {

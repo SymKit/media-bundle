@@ -1,0 +1,26 @@
+# Admin routes for Symkit Media Bundle.
+# In your app config/routes.yaml, import with:
+#   symkit_media_admin:
+#     resource: '@SymkitMediaBundle/config/routing_admin.yaml'
+#     prefix: '%symkit_media.admin.route_prefix%'
+
+admin_media_list:
+    path: /media
+    name: admin_media_list
+    controller: Symkit\MediaBundle\Controller\Admin\MediaController::list
+
+admin_media_create:
+    path: /media/create
+    name: admin_media_create
+    controller: Symkit\MediaBundle\Controller\Admin\MediaController::create
+
+admin_media_edit:
+    path: /media/{id}/edit
+    name: admin_media_edit
+    controller: Symkit\MediaBundle\Controller\Admin\MediaController::edit
+
+admin_media_delete:
+    path: /media/{id}/delete
+    name: admin_media_delete
+    methods: [POST]
+    controller: Symkit\MediaBundle\Controller\Admin\MediaController::delete

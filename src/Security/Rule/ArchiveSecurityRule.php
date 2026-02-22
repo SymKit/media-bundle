@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Symkit\MediaBundle\Security\Rule;
 
-use Exception;
-use PharData;
-use PharFileInfo;
-use Symkit\MediaBundle\Security\SecurityException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symkit\MediaBundle\Security\SecurityException;
 
 final class ArchiveSecurityRule implements SecurityRuleInterface
 {
@@ -25,19 +22,19 @@ final class ArchiveSecurityRule implements SecurityRuleInterface
         }
 
         try {
-            $archive = new PharData($file->getPathname());
+            $archive = new \PharData($file->getPathname());
             $this->scanArchive($archive);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if ($e instanceof SecurityException) {
                 throw $e;
             }
         }
     }
 
-    private function scanArchive(PharData $archive): void
+    private function scanArchive(\PharData $archive): void
     {
         foreach ($archive as $fileInArchive) {
-            /** @var PharFileInfo $fileInArchive */
+            /** @var \PharFileInfo $fileInArchive */
             $filename = $fileInArchive->getFilename();
 
             // Check for illegal characters or traversal in archive members
